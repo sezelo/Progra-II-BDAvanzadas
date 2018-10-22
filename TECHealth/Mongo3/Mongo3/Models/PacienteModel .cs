@@ -13,7 +13,7 @@ namespace Mongo3.Models
     public class PacienteModel
     {
         [BsonId]
-        public Double Id { get; set; }
+        public ObjectId Id { get; set; }
         [BsonElement("Nombre")]
         public string Nombre { get; set; }
         [BsonElement("Apellido1")]
@@ -29,7 +29,7 @@ namespace Mongo3.Models
         [BsonElement("Residencia")]
         public string Residencia { get; set; }
         [BsonElement("Telefonos")]
-        public double[] Telefonos { get; set; }
+        public string Telefonos { get; set; }
         [BsonElement("Contraseña")]
         public string Contraseña { get; set; }
 

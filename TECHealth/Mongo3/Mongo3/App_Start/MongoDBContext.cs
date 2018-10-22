@@ -14,7 +14,8 @@ namespace Mongo3.App_Start
 
         public MongoDBContext()
         {
-            var mongoClient = new MongoClient(ConfigurationManager.AppSettings["MongoDBHost"]);
+            var mongoClient = new MongoClient("mongodb://ale:Root12345@mongotechealth-shard-00-00-rer0u.mongodb.net:27017,mongotechealth-shard-00-01-rer0u.mongodb.net:27017,mongotechealth-shard-00-02-rer0u.mongodb.net:27017/test?ssl=true&replicaSet=MongoTecHealth-shard-0&authSource=admin&retryWrites=true");
+                                                      //("mongodb://ale:Root12345@mongotechealth-shard-00-00-rer0u.mongodb.net:27017,mongotechealth-shard-00-01-rer0u.mongodb.net:27017,mongotechealth-shard-00-02-rer0u.mongodb.net:27017/test?ssl=true&replicaSet=MongoTecHealth&authSource=admin");
             database = mongoClient.GetDatabase(ConfigurationManager.AppSettings["MongoDBName"]);
         }
     }

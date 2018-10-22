@@ -13,7 +13,7 @@ namespace Mongo3.Models
     public class CitasModel
     {
         [BsonId]
-        public Double Id { get; set; }
+        public ObjectId Id { get; set; }
         [BsonElement("Especialidad")]
         public string Especialidad { get; set; }
         [BsonElement("Fecha")]

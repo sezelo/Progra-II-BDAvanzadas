@@ -32,7 +32,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Details/5
         public ActionResult Details(string id)
         {
-            var DiagnosticoId = Convert.ToDouble(id);  //new ObjectId(id);
+            var DiagnosticoId = new ObjectId(id);
             var Diagnostico = DiagnosticoCollection.AsQueryable<DiagnosticoModel>().SingleOrDefault(x => x.Id == DiagnosticoId);
             return View(Diagnostico);
         }
@@ -63,7 +63,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Edit/5
         public ActionResult Edit(string id)
         {
-            var DiagnosticoId = Convert.ToDouble(id); //new ObjectId(id);
+            var DiagnosticoId = new ObjectId(id);
             var Diagnostico = DiagnosticoCollection.AsQueryable<DiagnosticoModel>().SingleOrDefault(x => x.Id == DiagnosticoId);
             return View(Diagnostico);
            
@@ -76,7 +76,7 @@ namespace Mongo3.Controllers
             try
             {
                 var filter = Builders<DiagnosticoModel>.Filter.Eq("id_", ObjectId.Parse(id));
-                var update = Builders<DiagnosticoModel>.Update.Set("Nombre", Diagnostico.Nombre);//Se puede agregar mas haciendo un .Set("",) extra
+                var update = Builders<DiagnosticoModel>.Update.Set("Nombre", Diagnostico.Nombre);//"Descripcion", Diagnostico.Descripcion, "Sintomas", Diagnostico.Sintomas, "Unidades", Diagnostico.Unidades, "Monto", Diagnostico.Monto);//Se puede agregar mas haciendo un .Set("",) extra
                 var result = DiagnosticoCollection.UpdateOne(filter, update);
 
                 return RedirectToAction("Index");
@@ -90,7 +90,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Delete/5
         public ActionResult Delete(string id)
         {
-            var DiagnosticoId = Convert.ToDouble(id); //new ObjectId(id);
+            var DiagnosticoId = new ObjectId(id);
             var Diagnostico = DiagnosticoCollection.AsQueryable<DiagnosticoModel>().SingleOrDefault(x => x.Id == DiagnosticoId);
             return View(Diagnostico);
         }

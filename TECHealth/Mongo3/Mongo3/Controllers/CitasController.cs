@@ -32,7 +32,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Details/5
         public ActionResult Details(string id)
         {
-            var CitasId = Convert.ToDouble(id);  //new ObjectId(id);
+            var CitasId = new ObjectId(id);
             var Citas = CitasCollection.AsQueryable<CitasModel>().SingleOrDefault(x => x.Id == CitasId);
             return View(Citas);
         }
@@ -63,7 +63,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Edit/5
         public ActionResult Edit(string id)
         {
-            var CitasId = Convert.ToDouble(id); //new ObjectId(id);
+            var CitasId = new ObjectId(id);
             var Citas = CitasCollection.AsQueryable<CitasModel>().SingleOrDefault(x => x.Id == CitasId);
             return View(Citas);
            
@@ -76,7 +76,7 @@ namespace Mongo3.Controllers
             try
             {
                 var filter = Builders<CitasModel>.Filter.Eq("id_", ObjectId.Parse(id));
-                var update = Builders<CitasModel>.Update.Set("Especialidad", Citas.Especialidad);//Se puede agregar mas haciendo un .Set("",) extra
+                var update = Builders<CitasModel>.Update.Set("Especialidad", Citas.Especialidad);// "Fecha", Citas.Fecha, "Hora", Citas.Hora, "Observacion", Citas.Observacion, "Estado", Citas.Estado);//Se puede agregar mas haciendo un .Set("",) extra
                 var result = CitasCollection.UpdateOne(filter, update);
 
                 return RedirectToAction("Index");
@@ -90,7 +90,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Delete/5
         public ActionResult Delete(string id)
         {
-            var CitasId = Convert.ToDouble(id); //new ObjectId(id);
+            var CitasId = new ObjectId(id);
             var Citas = CitasCollection.AsQueryable<CitasModel>().SingleOrDefault(x => x.Id == CitasId);
             return View(Citas);
         }

@@ -32,7 +32,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Details/5
         public ActionResult Details(string id)
         {
-            var funcionarioId = Convert.ToDouble(id);  //new ObjectId(id);
+            var funcionarioId = new ObjectId(id);
             var funcionario = funcionarioCollection.AsQueryable<FuncionarioModel>().SingleOrDefault(x => x.Id == funcionarioId);
             return View(funcionario);
         }
@@ -61,9 +61,9 @@ namespace Mongo3.Controllers
         }
 
         // GET: Funcionarios/Edit/5
-        public ActionResult Edit(double id)
+        public ActionResult Edit(string id)
         {
-            var funcionarioId = id;//Convert.ToDouble(id); //new ObjectId(id);
+            var funcionarioId = new ObjectId(id);
             var funcionario = funcionarioCollection.AsQueryable<FuncionarioModel>().SingleOrDefault(x => x.Id == funcionarioId);
             return View(funcionario);
            
@@ -90,7 +90,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Delete/5
         public ActionResult Delete(string id)
         {
-            var funcionarioId = Convert.ToDouble(id); //new ObjectId(id);
+            var funcionarioId = new ObjectId(id);
             var funcionario = funcionarioCollection.AsQueryable<FuncionarioModel>().SingleOrDefault(x => x.Id == funcionarioId);
             return View(funcionario);
         }
@@ -101,7 +101,7 @@ namespace Mongo3.Controllers
         {
             try
             {
-                funcionarioCollection.DeleteOne(Builders<FuncionarioModel>.Filter.Eq("_id", Double.Parse(id)));
+                funcionarioCollection.DeleteOne(Builders<FuncionarioModel>.Filter.Eq("_id", ObjectId.Parse(id)));
 
                 return RedirectToAction("Index");
             }

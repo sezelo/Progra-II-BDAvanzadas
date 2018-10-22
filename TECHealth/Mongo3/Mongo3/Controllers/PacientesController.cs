@@ -32,7 +32,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Details/5
         public ActionResult Details(string id)
         {
-            var pacientesId = Convert.ToDouble(id);  //new ObjectId(id);
+            var pacientesId = new ObjectId(id);
             var pacientes = pacienteCollection.AsQueryable<PacienteModel>().SingleOrDefault(x => x.Id == pacientesId);
             return View(pacientes);
         }
@@ -63,7 +63,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Edit/5
         public ActionResult Edit(string id)
         {
-            var pacienteId = Convert.ToDouble(id); //new ObjectId(id);
+            var pacienteId = new ObjectId(id);
             var paciente = pacienteCollection.AsQueryable<PacienteModel>().SingleOrDefault(x => x.Id == pacienteId);
             return View(paciente);
            
@@ -90,7 +90,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Delete/5
         public ActionResult Delete(string id)
         {
-            var pacientesId = Convert.ToDouble(id); //new ObjectId(id);
+            var pacientesId = new ObjectId(id);
             var pacientes = pacienteCollection.AsQueryable<PacienteModel>().SingleOrDefault(x => x.Id == pacientesId);
             return View(pacientes);
         }

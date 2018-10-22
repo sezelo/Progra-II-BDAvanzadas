@@ -32,7 +32,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Details/5
         public ActionResult Details(string id)
         {
-            var CentroAtencionId = Convert.ToDouble(id);  //new ObjectId(id);
+            var CentroAtencionId = new ObjectId(id);
             var CentroAtencion = CentroAtencionCollection.AsQueryable<CentroAtencionModel>().SingleOrDefault(x => x.Id == CentroAtencionId);
             return View(CentroAtencion);
         }
@@ -63,7 +63,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Edit/5
         public ActionResult Edit(string id)
         {
-            var CentroAtencionId = Convert.ToDouble(id); //new ObjectId(id);
+            var CentroAtencionId = new ObjectId(id);
             var CentroAtencion = CentroAtencionCollection.AsQueryable<CentroAtencionModel>().SingleOrDefault(x => x.Id == CentroAtencionId);
             return View(CentroAtencion);
            
@@ -76,7 +76,7 @@ namespace Mongo3.Controllers
             try
             {
                 var filter = Builders<CentroAtencionModel>.Filter.Eq("id_", ObjectId.Parse(id));
-                var update = Builders<CentroAtencionModel>.Update.Set("Nombre", CentroAtencion.Nombre);//Se puede agregar mas haciendo un .Set("",) extra
+                var update = Builders<CentroAtencionModel>.Update.Set("Nombre", CentroAtencion.Nombre);//"Ubicacion",CentroAtencion.Ubicacion,"CapacidadMaxima", CentroAtencion.CapacidadMaxima, "Tipo", CentroAtencion.Tipo);//Se puede agregar mas haciendo un .Set("",) extra
                 var result = CentroAtencionCollection.UpdateOne(filter, update);
 
                 return RedirectToAction("Index");
@@ -90,7 +90,7 @@ namespace Mongo3.Controllers
         // GET: Funcionarios/Delete/5
         public ActionResult Delete(string id)
         {
-            var CentroAtencionId = Convert.ToDouble(id); //new ObjectId(id);
+            var CentroAtencionId = new ObjectId(id);
             var CentroAtencion = CentroAtencionCollection.AsQueryable<CentroAtencionModel>().SingleOrDefault(x => x.Id == CentroAtencionId);
             return View(CentroAtencion);
         }
@@ -110,5 +110,7 @@ namespace Mongo3.Controllers
                 return View();
             }
         }
+
+
     }
 }

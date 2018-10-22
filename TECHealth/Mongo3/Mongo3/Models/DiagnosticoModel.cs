@@ -12,7 +12,7 @@ namespace Mongo3.Models
     public class DiagnosticoModel
     {
         [BsonId]
-        public Double Id { get; set; }
+        public ObjectId Id { get; set; }
         [BsonElement("Nombre")]
         public string Nombre { get; set; }
         [BsonElement("Descripcion")]

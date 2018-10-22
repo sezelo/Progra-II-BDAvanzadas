@@ -110,5 +110,34 @@ namespace Mongo3.Controllers
                 return View();
             }
         }
+
+        public ActionResult Logged()
+        {
+            return View();
+        }
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Login(FuncionarioModel user)
+        {
+            using (ourDbContext db = new ourDbContext())
+            {
+                var usr = funcionarioCollection.AsQueryable<FuncionarioModel>().SingleOrDefault(u => u.Nombre == user.Nombre && u.Contraseña == user.Contraseña);
+                //var usr = funcionarioCollection.FindAsync(u => u.Nombre == user.Nombre && u.Contraseña == user.Contraseña);
+                if (usr != null)
+                {
+
+                    return RedirectToAction("Logged");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Nombre de usuario o contraseña incorrectos");
+                }
+                return View();
+            }
+        }
     }
 }

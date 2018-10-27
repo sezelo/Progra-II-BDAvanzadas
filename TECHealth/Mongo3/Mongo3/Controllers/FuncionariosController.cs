@@ -16,6 +16,7 @@ namespace Mongo3.Controllers
         private MongoDBContext dbcontext;
         private IMongoCollection<FuncionarioModel> funcionarioCollection; 
 
+
          public FuncionariosController()
         {
             dbcontext = new MongoDBContext();
@@ -155,5 +156,19 @@ namespace Mongo3.Controllers
                 return View();
             
         }
+
+        public ActionResult Consultas()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult Consultas(FuncionarioModel user)
+        {
+            PacientesController x = new PacientesController();
+            
+            TempData["msg"] = "<script>alert('"+ x.CitasPorPaciente() + "');</script>";
+            return View();
+        }
+
     }
 }

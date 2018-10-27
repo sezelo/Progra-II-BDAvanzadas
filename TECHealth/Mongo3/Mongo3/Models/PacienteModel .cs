@@ -14,6 +14,8 @@ namespace Mongo3.Models
     {
         [BsonId]
         public ObjectId Id { get; set; }
+        [BsonElement("Cedula")]
+        public string Cedula { get; set; }
         [BsonElement("Nombre")]
         public string Nombre { get; set; }
         [BsonElement("Apellido1")]
@@ -25,7 +27,7 @@ namespace Mongo3.Models
         [BsonElement("TipoSangre")]
         public string TipoSangre { get; set; }
         [BsonElement("Nacionalidad")]
-        public string Nacionalidada { get; set; }
+        public string Nacionalidad { get; set; }
         [BsonElement("Residencia")]
         public string Residencia { get; set; }
         [BsonElement("Telefonos")]

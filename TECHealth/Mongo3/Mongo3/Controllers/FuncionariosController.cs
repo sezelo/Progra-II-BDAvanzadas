@@ -134,7 +134,19 @@ namespace Mongo3.Controllers
                 if (usr != null)
                 {
 
-                    return RedirectToAction("Index", "Citas");
+                    if (user.TipoFuncionario == "0")
+                    {
+                        return RedirectToAction("Index", "Citas");
+                    }
+
+                    if (user.TipoFuncionario == "1")
+                    {
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index", "Citas");
+                    }
                 }
                 else
                 {

@@ -15,6 +15,7 @@ namespace Mongo3.Controllers
     {
         private MongoDBContext dbcontext;
         private IMongoCollection<CitasModel> CitasCollection;
+        private string cedula;
 
         public CitasController()
         {
@@ -23,10 +24,12 @@ namespace Mongo3.Controllers
         }
 
         // GET: Funcionarios
-        public ActionResult Index()
+        public async System.Threading.Tasks.Task<ActionResult> IndexAsync()
         {
-            List<CitasModel> Citas = CitasCollection.AsQueryable<CitasModel>().ToList();
-            return View(Citas);
+            var filter = Builders<CitasModel>.Filter.Eq("cedula", "0");
+            List<CitasModel> result = await CitasCollection.Find(filter).ToListAsync(); 
+            //List<CitasModel> Citas = CitasCollection.AsQueryable<CitasModel>().ToList();
+            return View(result);
         }
 
         // GET: Funcionarios/Details/5
@@ -50,10 +53,11 @@ namespace Mongo3.Controllers
         {
             try
             {
+                Citas.Estado = "Registrada";
                 CitasCollection.InsertOne(Citas);
 
                 return RedirectToAction("Index"); 
-            }
+            } 
             catch
             {
                 return View();
@@ -76,7 +80,7 @@ namespace Mongo3.Controllers
             try
             {
                 var filter = Builders<CitasModel>.Filter.Eq("id_", ObjectId.Parse(id));
-                var update = Builders<CitasModel>.Update.Set("Especialidad", Citas.Especialidad);// "Fecha", Citas.Fecha, "Hora", Citas.Hora, "Observacion", Citas.Observacion, "Estado", Citas.Estado);//Se puede agregar mas haciendo un .Set("",) extra
+                var update = Builders<CitasModel>.Update.Set("Especialidad", Citas.Especialidad);//Se puede agregar mas haciendo un .Set("",) extra
                 var result = CitasCollection.UpdateOne(filter, update);
 
                 return RedirectToAction("Index");
@@ -103,11 +107,26 @@ namespace Mongo3.Controllers
             {
                 CitasCollection.DeleteOne(Builders<CitasModel>.Filter.Eq("_id", ObjectId.Parse(id)));
 
-                return RedirectToAction("Index");
+                return RedirectToAction("CitaPacienteAsync");
             }
             catch
             {
                 return View();
+            }
+        }
+
+        public async System.Threading.Tasks.Task<ActionResult> CitaPacienteAsync()
+        {
+            if (TempData["cedula"] != null)
+            {
+                this.cedula = (string)TempData["cedula"];
+                var filter = Builders<CitasModel>.Filter.Eq("cedula", cedula);
+                List<CitasModel> result = await CitasCollection.Find(filter).ToListAsync();
+                return View(result);
+            }
+            else
+            {
+                return RedirectToAction("Create");
             }
         }
     }
